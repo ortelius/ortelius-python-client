@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-from nft_storage_utils import *
+from storage_utils import *
 import re
 import coloredlogs, logging
 

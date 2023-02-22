@@ -64,6 +64,7 @@ def getData(cid):
     try:
         url = f"https://ipfs.io/ipfs/{cid}?format=json"
         response = requests.get(url)
+        # print("Going to minimize:: "+ str(response.json()))
         data = get_minimize_data(response.json())
         # print(data)
         return data

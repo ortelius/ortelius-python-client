@@ -14,7 +14,7 @@ from pprint import pprint
 import json
 from collections import defaultdict
 import re
-import normalize
+import normalize_api
 
 class StatusMsg(BaseModel):
     status: str
@@ -881,10 +881,10 @@ def invert(jsonfile):
         print(json.dumps(unnested, sort_keys=True))
 
 def normalize(sbom):
-    return normalize.normalize(sbom)
+    return normalize_api.normalize(sbom)
 
 def de_normalize(sbom):
-    return normalize.de_normalize(sbom)
+    return normalize_api.de_normalize(sbom)
 
 if __name__ == "__main__":
     # print(AllModels.schema_json())

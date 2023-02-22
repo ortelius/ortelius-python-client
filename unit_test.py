@@ -1,6 +1,6 @@
 import unittest
 
-from nft_storage_utils import *
+from storage_utils import *
 from ortelius_common import *
 
 
