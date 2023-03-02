@@ -13,7 +13,8 @@ from pydantic import BaseModel
 from pprint import pprint
 import json
 from collections import defaultdict
-from cbor2 import dumps
+import re
+import normalize_api
 
 class StatusMsg(BaseModel):
     status: str
@@ -879,6 +880,13 @@ def invert(jsonfile):
         # denorm = resolve_hashes(unnested)
         print(json.dumps(unnested, sort_keys=True))
 
+def normalize(sbom):
+    return normalize_api.normalize(sbom)
+
+def de_normalize(sbom):
+    return normalize_api.de_normalize(sbom)
+
 if __name__ == "__main__":
     # print(AllModels.schema_json())
     invert('denormalized.json')
+

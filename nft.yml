@@ -1,0 +1,19 @@
+# log settings for script
+logging:
+  logPath: creation.log
+  logLevel: debug
+  maxSize: 5242880
+  maxFiles: 5
+  colorize: true
+
+# config options for XRP
+xrp:
+  network: wss://s.altnet.rippletest.net
+
+system:
+  exitEnabled: true
+  exitScriptTTL: 30 #Minutes
+
+nft:
+  host: https://api.nft.storage
+  API_KEY: <YOUR API KEY>
