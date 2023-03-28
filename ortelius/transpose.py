@@ -6,10 +6,36 @@ import re
 
 from ortelius import storage
 
-__all__ = ["normalize", "convert_object_to_cid", "get_clean_json", "detect_inner_object", "convert_to_dict", "de_normalize", "decode_nft_helper", "convert_cid_to_object", "detect_nft"]
+__all__ = ["normalize", "convert_object_to_cid", "get_clean_json", "detect_inner_object", "convert_to_dict", "de_normalize", "decode_nft_helper", "convert_cid_to_object", "detect_nft", "remove_key"]
 
 # Create a logger object.
 logger = logging.getLogger(__name__)
+
+
+def remove_key(obj):
+    """
+    This method scrolls the entire 'obj' to delete every key for which the regex returns
+    True
+
+    :param obj: a dictionary or a list of dictionaries to clean
+    """
+    if isinstance(obj, dict):
+        # the call to `list` is useless for py2 but makes
+        # the code py2/py3 compatible
+        for key in list(obj.keys()):
+            if re.match(r"^_key", str(key)):
+                del obj[key]
+            else:
+                remove_key(obj[key])
+    elif isinstance(obj, list):
+        for i in reversed(range(len(obj))):
+            if re.match(r"^_key", str(obj[i])):
+                del obj[i]
+            else:
+                remove_key(obj[i])
+    else:
+        # neither a dict nor a list, do nothing
+        pass
 
 
 # This method will wrap json object and store all the nested objects as NFT recersively
@@ -127,6 +153,7 @@ def convert_cid_to_object(cid):
     fetched_cid = json.loads(storage.get_cid_data(address))
 
     fetched_cid_data = json.loads(fetched_cid)
+
     if isinstance(fetched_cid_data, dict):
         for key in fetched_cid_data:
             # logger.debug("detecting cids in --" + str(fetched_cid_data))
@@ -152,5 +179,7 @@ IPFS_REGEX = r"^ipfs://Qm[1-9A-HJ-NP-Za-km-z]{44,}|^ipfs://b[A-Za-z2-7]{58,}|^ip
 
 # this method checks if this value is valid IPFS url or not
 def detect_nft(value):
+    if not str(value).startswith("ipfs:"):
+        return None
     pattern = re.compile(IPFS_REGEX, re.IGNORECASE)
     return pattern.match(value)

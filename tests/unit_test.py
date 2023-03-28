@@ -1,7 +1,7 @@
 import json
 import unittest
 
-import ortelius
+from ortelius import transpose
 
 denormalized_data = {}
 with open("denormalized.json", mode="r", encoding="utf-8") as file_data:
@@ -25,24 +25,28 @@ expected_normalized_data = [
     "ipfs://bafkreicc7jaflfcjikbrjahaub6wj4hjyrduzk6wel3tszu23rcxtllrey",
     "ipfs://bafkreihkprgnvf36eww24vt6atwpje7nmrd3s34fa5e6potqv4h3smvxk4",
     "ipfs://bafkreic3qg3ii4eufyolyxlgaoxubu3ot74duuozm425g3pfymjdfijn6a",
-    "ipfs://bafkreigz4zkptri6qvrtodygetueym7lmj5wfnw5grezcs23khlkvteqxq",
-    "ipfs://bafkreifui7t5i2lxbj2i3phvpzgausxbigjtmtalc57kmsi36xqsvnn3eu",
-    "ipfs://bafkreif6j55ofhssasdj6zspkr3lpr5gjwmbz6qralmdjnb34lfp2nmytq",
-    "ipfs://bafkreighxjgqu7lzrj3x4i3qeakeguiefsbq2mx52jgzzccsnapdtun7ci",
-    "ipfs://bafkreicuz7pg3gc4vhulsvyj5tzochkyhebtr4n6yuf7vvpkxlbjv6wjea",
+    "ipfs://bafkreibubqkcfjk332beuehh2bx5o4wp7suydmbwx5rr63l2dyz2qy2wky",
+    "ipfs://bafkreidisn5lptp7tuj2i5jwyjkfkrdf7jw3becp2fdmzpc2csvecswtx4",
+    "ipfs://bafkreig437cug4pst2kocvhvrk5gxnzcir4h5hdfovrm7gd7aez3jfuata",
+    "ipfs://bafkreicvnwz3kpoq2psykmqomchtikbyfmblzkli23nvnnilvyiccag3le",
+    "ipfs://bafkreias5w55ugpw4dazmbo3jlazoyatuew5ac7klshnjwd4iidxcsbs6e",
 ]
 
 
 class TestFuntionalCases(unittest.TestCase):
     def test_normalize(self):
-        actual_normalized_data = ortelius.normalize(denormalized_data)
-        print(actual_normalized_data)
+        actual_normalized_data = transpose.normalize(denormalized_data)
+
         self.assertTrue(actual_normalized_data is not None)
         self.assertEqual(actual_normalized_data, expected_normalized_data)
 
     def test_de_normalize(self):
-        actual_denormalized_data = ortelius.de_normalize(expected_normalized_data)
-        print(actual_denormalized_data)
+        actual_denormalized_data = transpose.de_normalize(expected_normalized_data)
+
+        # Remove the _keys from the nested dictionaries since they are generated
+        transpose.remove_key(actual_denormalized_data)
+        transpose.remove_key(denormalized_data)
+
         self.assertTrue(actual_denormalized_data is not None)
         self.assertEqual(denormalized_data, actual_denormalized_data)
 

@@ -29,7 +29,8 @@ def save(data, objtype):
                 body = BytesIO(bytes(get_minimize_data(read_json), "utf-8"))
             else:
                 if objtype == "json":
-                    body = BytesIO(bytes(get_minimize_data(data), "utf-8"))
+                    min_data = get_minimize_data(data)
+                    body = BytesIO(bytes(min_data, "utf-8"))
                 else:
                     raise Exception(f"Sorry, Ortelius do not support {objtype} as of now. Valid types are Json or file")
 
@@ -86,7 +87,8 @@ def get_minimize_data(json_data):
 def get_sorted(dictionary_or_list):
     if isinstance(dictionary_or_list, dict):
         return get_sorted_object(dictionary_or_list)
-    elif isinstance(dictionary_or_list, list):
+
+    if isinstance(dictionary_or_list, list):
         collector = []
         for element in dictionary_or_list:
             collector.append(get_sorted_object(element))
