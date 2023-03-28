@@ -13,7 +13,7 @@ setup(
     author="Steve Taylor",
     author_email="steve@deployhub.com",
     name="ortelius",
-    version="10.0.1",
+    version="11.0.0",
     py_modules=["ortelius"],
     license="Apache-2.0",
     long_description=open("README.md", mode="r", encoding="utf-8").read(),
