@@ -1,6 +1,5 @@
 fastapi==0.95.0
-nft.storage==1.0.0
-pydantic==1.10.6
+git+https://github.com/nftstorage/python-client.git@7819a262fd08a301bff897e0736eb27891ed0c61#egg=nft.storage
+pydantic==1.10.7
 PyYAML==6.0
 requests==2.28.2
-setuptools==65.7.0
