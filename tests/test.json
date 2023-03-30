@@ -156,24 +156,15 @@
   },
   "5b3146af9a9d7519fc0564297f51124c5467f268": {
     "_type": "license",
-    "content": [
-      "# Apache 2",
-      "## Summary"
-    ]
+    "content": ["# Apache 2", "## Summary"]
   },
   "6f16546492419e0efd543cbdf9099462b35b7b52": {
     "_type": "swagger",
-    "content": [
-      "# Rest APIs",
-      "## GET /user"
-    ]
+    "content": ["# Rest APIs", "## GET /user"]
   },
   "7643b038d5f7ac1361c343f237c504b0be0d6cf6": {
     "_type": "readme",
-    "content": [
-      "# README",
-      "## Sample"
-    ]
+    "content": ["# README", "## Sample"]
   },
   "79c8b9b970571cbdf96f9be1ed41b1d3c7301e56": {
     "_type": "group",
@@ -182,15 +173,11 @@
   },
   "89b8bc6f0377ec5a42cf921a3c62c410455aa1c7": {
     "_type": "consuming",
-    "consumes": [
-      "/user"
-    ]
+    "consumes": ["/user"]
   },
   "8adfd551f10b15760fd5a3e93ad60e3b409c533f": {
     "_type": "providing",
-    "provides": [
-      "/user"
-    ]
+    "provides": ["/user"]
   },
   "99206b12095f4d2c1f589ebee51b3c584d7f509b": {
     "_type": "user",
@@ -202,9 +189,7 @@
   },
   "a5a5cbedfc08a28bb6b9a73a9475b2b656b329cd": {
     "_type": "applicationversion",
-    "deployments": [
-      121
-    ],
+    "deployments": [121],
     "domain": "0ca02cc4cf8fbb3e3b2b29af3e7495f9b0f78bb8",
     "name": "Hello App;v1",
     "parent": null,

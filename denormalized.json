@@ -94,28 +94,19 @@
   {
     "Readme": {
       "_key": 2344,
-      "content": [
-        "# README",
-        "## Sample"
-      ]
+      "content": ["# README", "## Sample"]
     }
   },
   {
     "License": {
       "_key": 1244,
-      "content": [
-        "# Apache 2",
-        "## Summary"
-      ]
+      "content": ["# Apache 2", "## Summary"]
     }
   },
   {
     "Swagger": {
       "_key": 334,
-      "content": [
-        "# Rest APIs",
-        "## GET /user"
-      ]
+      "content": ["# Rest APIs", "## GET /user"]
     }
   },
   {
@@ -127,17 +118,13 @@
   {
     "Providing": {
       "_key": 5987,
-      "provides": [
-        "/user"
-      ]
+      "provides": ["/user"]
     }
   },
   {
     "Consuming": {
       "_key": 911,
-      "consumes": [
-        "/user"
-      ]
+      "consumes": ["/user"]
     }
   },
   {
@@ -162,9 +149,7 @@
       },
       "parent": null,
       "predecessor": null,
-      "deployments": [
-        121
-      ]
+      "deployments": [121]
     }
   },
   {
@@ -250,37 +235,24 @@
       ],
       "readme": {
         "_key": 2344,
-        "content": [
-          "# README",
-          "## Sample"
-        ]
+        "content": ["# README", "## Sample"]
       },
       "license": {
         "_key": 1244,
-        "content": [
-          "# Apache 2",
-          "## Summary"
-        ]
+        "content": ["# Apache 2", "## Summary"]
       },
       "swagger": {
         "_key": 334,
-        "content": [
-          "# Rest APIs",
-          "## GET /user"
-        ]
+        "content": ["# Rest APIs", "## GET /user"]
       },
       "applications": [],
       "providing": {
         "_key": 5987,
-        "provides": [
-          "/user"
-        ]
+        "provides": ["/user"]
       },
       "consuming": {
         "_key": 911,
-        "consumes": [
-          "/user"
-        ]
+        "consumes": ["/user"]
       },
       "attrs": {
         "builddate": "Mon Jan 31 16:18:26 2022",
