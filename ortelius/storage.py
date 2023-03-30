@@ -1,12 +1,9 @@
 """Ortelius Class Defintions and Reusable functions."""
 
 import json
-from io import BytesIO
 
-import nft_storage
 import requests
 import yaml
-from nft_storage.api import nft_storage_api
 
 __all__ = ["save", "check", "status", "get_cid_data", "get_minimize_data"]
 
@@ -15,68 +12,59 @@ properties = {}
 with open("nft.yml", mode="r", encoding="utf-8") as file_nft:
     properties = yaml.safe_load(file_nft)
 
-configuration = nft_storage.Configuration(host=properties["nft"]["host"], access_token=properties["nft"]["API_KEY"])
-
 
 def save(data, objtype):
-    with nft_storage.ApiClient(configuration) as client:
-        storage = nft_storage_api.NFTStorageAPI(client)
+    #
+    # TODO: Create a Convert files to content-addressable archives (.car)
+    #       No native python library exists.  Need to copy https://www.npmjs.com/package/ipfs-car
+    #       echo -n '{"name":"GLOBAL"}' | ipfs-car pack --output a.car
+    #
+    #       Then use Content-Type: application/car instead of image/*
+    #
 
-        try:
-            if objtype == "file":
-                file_data = open(data, "rb")
-                read_json = json.load(file_data)
-                body = BytesIO(bytes(get_minimize_data(read_json), "utf-8"))
-            else:
-                if objtype == "json":
-                    min_data = get_minimize_data(data)
-                    body = BytesIO(bytes(min_data, "utf-8"))
-                else:
-                    raise Exception(f"Sorry, Ortelius do not support {objtype} as of now. Valid types are Json or file")
+    host = properties["nft"]["host"]
+    access_token = properties["nft"]["API_KEY"]
+    headers = {"Authorization": "Bearer " + access_token, "accept": "application/json", "Content-Type": "image/*"}
+    min_data = data
 
-            return storage.store(body, _check_return_type=False)
+    if objtype == "file":
+        file_data = open(data, mode="r", encoding="utf-8")
+        read_json = json.load(file_data)
+        min_data = get_minimize_data(read_json)
 
-        except nft_storage.ApiException as ex:
-            print(f"Exception when calling nft_storage_utils.save(): {ex}\n")
-            return ex
-        except Exception as ex:
-            print(f"Exception when calling nft_storage_utils.save(): {ex}\n")
-            return ex
-        finally:
-            client.close()
+    response = requests.post(f"{host}/upload", headers=headers, data=min_data, timeout=10)
+    return response.json()
 
 
 def check(cid):
-    with nft_storage.ApiClient() as client:
-        storage = nft_storage_api.NFTStorageAPI(client)
-        try:
-            return storage.check(cid, _check_return_type=False)
-        except nft_storage.ApiException as ex:
-            print(f"Exception when calling nft_storage_utils.check(): {ex}\n")
-            return ex
+    host = properties["nft"]["host"]
+    access_token = properties["nft"]["API_KEY"]
+    headers = {"Authorization": "Bearer " + access_token, "accept": "application/json"}
+
+    response = requests.get(f"{host}/check/{cid}", headers=headers, timeout=10)
+    return response.json()
 
 
 def status(cid):
-    with nft_storage.ApiClient(configuration) as api_client:
-        storage = nft_storage_api.NFTStorageAPI(api_client)
-        try:
-            return storage.status(cid, _check_return_type=False)
-        except nft_storage.ApiException as ex:
-            print(f"Exception when calling nft_storage_utils.status(): {ex}\n")
-            return ex
+    host = properties["nft"]["host"]
+    access_token = properties["nft"]["API_KEY"]
+    headers = {"Authorization": "Bearer " + access_token, "accept": "application/json"}
+
+    response = requests.get(f"{host}/{cid}", headers=headers, timeout=10)
+    return response.json()
 
 
 def get_cid_data(cid):
-    try:
-        url = f"https://ipfs.io/ipfs/{cid}?format=json"
-        response = requests.get(url, timeout=20)
-        # print("Going to minimize:: "+ str(response.json()))
-        data = get_minimize_data(response.json())
-        # print(data)
-        return data
-    except nft_storage.ApiException as ex:
-        print(f"Exception when calling nft_storage_utils.get_data_cid(): {ex}\n")
-        return ex
+    url = f"https://{cid}.ipfs.nftstorage.link/?format=json"
+    response = requests.get(url, headers={"accept": "application/json"}, timeout=10)
+    data = get_minimize_data(response.json())
+    return data
+
+
+def get_cid_json(cid):
+    url = f"https://{cid}.ipfs.nftstorage.link/?format=json"
+    response = requests.get(url, headers={"accept": "application/json"}, timeout=10)
+    return response.json()
 
 
 def get_minimize_data(json_data):

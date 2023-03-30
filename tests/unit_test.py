@@ -3,44 +3,48 @@ import unittest
 
 from ortelius import transpose
 
-denormalized_data = {}
-with open("denormalized.json", mode="r", encoding="utf-8") as file_data:
-    denormalized_data = json.load(file_data)
-
 expected_normalized_data = [
-    "ipfs://bafkreihcaehhl6k2ekd37dqaj6rqegdq5hcelr7ly4aupaenkqdm4wucfm",
-    "ipfs://bafkreiezkbcsvmmskosikhwfgot6reopiu5yvx5zyu6xdjtonf3rvotzui",
-    "ipfs://bafkreiff3yjhwwx4gbftm5rqkz5tj3us3wsltwkakb2wf4yjtezg7hcwvq",
-    "ipfs://bafkreifvaabjhi67r4jzcx6t7jwa66bzfd33bna274rbgahf6qaodbma2m",
-    "ipfs://bafkreids5svygibbwm36oj3ad3pj4ytna76dpwzmitlqboqnikwgultdou",
-    "ipfs://bafkreigo3cgb6rgyab3rdwmbhhzlgt7e76aqso2rtipciwb67emri72ngq",
-    "ipfs://bafkreibs7g5z74pzalzu5wumjtjdqhwnj5oju6ckwxwyj4yeoqeljrzfdy",
-    "ipfs://bafkreid66tulb3whkoi42emjnzs7a7gkghfwuo6qawnb4ylpm5hma46ueu",
-    "ipfs://bafkreiedeqhp4ygdciew6sbhayzhfr6h53zslzsouqg4wwypa2dxzvvjie",
-    "ipfs://bafkreihq3vpleriegftlzdwbaqosxk77s6ekgkodmkrh2l7vtlic2f6qxm",
-    "ipfs://bafkreihy46zj7y2a6y2f7bcyqc526ylqumn3gjv4lpnnsppdmweqpshhhi",
-    "ipfs://bafkreiczajynwwrztwky7njmjebzgrbp7kmod23ymc32a5gzefdwt2mioq",
-    "ipfs://bafkreic4ke5hq2inkchyefns4ruct6dgkegewbnizqv6ovndiza2ffmwb4",
-    "ipfs://bafkreih5ukf7mae3fhou76mhkcnteh2gwfrmo6nq3c4skruk6gkl2e3fjy",
-    "ipfs://bafkreicc7jaflfcjikbrjahaub6wj4hjyrduzk6wel3tszu23rcxtllrey",
-    "ipfs://bafkreihkprgnvf36eww24vt6atwpje7nmrd3s34fa5e6potqv4h3smvxk4",
-    "ipfs://bafkreic3qg3ii4eufyolyxlgaoxubu3ot74duuozm425g3pfymjdfijn6a",
-    "ipfs://bafkreibubqkcfjk332beuehh2bx5o4wp7suydmbwx5rr63l2dyz2qy2wky",
-    "ipfs://bafkreidisn5lptp7tuj2i5jwyjkfkrdf7jw3becp2fdmzpc2csvecswtx4",
-    "ipfs://bafkreig437cug4pst2kocvhvrk5gxnzcir4h5hdfovrm7gd7aez3jfuata",
-    "ipfs://bafkreicvnwz3kpoq2psykmqomchtikbyfmblzkli23nvnnilvyiccag3le",
-    "ipfs://bafkreias5w55ugpw4dazmbo3jlazoyatuew5ac7klshnjwd4iidxcsbs6e",
+    "ipfs://bafkreib2tytdqwtl7xzqksbxwbqvrmkbo55n6m2ivglikchgiv5gwte2si",
+    "ipfs://bafkreiawq3zb2dhvmwxys7glkgmv5qokw4fnlfbkw45tcj4uku5kc3dlqu",
+    "ipfs://bafkreia7u7dd3wkjdrjgjxpy37vczpay2ewamddssaadwk3rf7xp7bams4",
+    "ipfs://bafkreie2bh7jb3irvlllbnurvzakaeqwhmie4rv6sdhhnnev4rbs4eis6q",
+    "ipfs://bafkreie4lc5k4djdyiukgiqhigxpenrjqjslq6gxmin5m62qtmxo3b4sgm",
+    "ipfs://bafkreig3hlhk63fbwpvny6nou3uip7nhyxlznvygqietsqzkgxrdjuy6sa",
+    "ipfs://bafkreig7jlcdg2akflzagtuxjcdnvn3osujcdyfewz5hyuzjlgj4bhu3fe",
+    "ipfs://bafkreiaxh4sof5bb3vafa2g4u6jyledtlzqeodx47375skudetnemvs5pi",
+    "ipfs://bafkreiffv2oxypru3uhphct62mif2meit22qnutjks52hbfoyoo4tmpkva",
+    "ipfs://bafkreigh5ownbcgr7yuoarif6rpg2t2erdepxynkmbq6dwwaccy4i5di7y",
+    "ipfs://bafkreicsa5m76prub2wjufmjq64kgu5i3rtl2en2pdhnfxcw465vkxib3m",
+    "ipfs://bafkreieyxidpwmyxedtpeyx3qqa43oqftafpzd4bzptkkjjga3zttf6xma",
+    "ipfs://bafkreig3yxvgitjwyvopbdnisfwzsv52spzg2wo64ff2qgrtrmayhzkm5q",
+    "ipfs://bafkreiclh65ndhpy23b3xgyldprfbvodmxekm5sua2kdsxx74g552zqbei",
+    "ipfs://bafkreiblgc5agtbkcaml3lvsh6uyddbztbaw6lvdi3xagpwsl3rh265jyu",
+    "ipfs://bafkreid2hp5d6exbu72nry4czbybdzqya7jjqpogn3icfnakvw2bec4l7m",
+    "ipfs://bafkreibgv2uqxpzm46xzp7c3tzhlvgr4eqgdfvg6qowhr35g5ahcn2ezrm",
+    "ipfs://bafkreiefbcqplideg5olwlgwr5facruqx5dw6l3xfvk5gfgugh3eeezvka",
+    "ipfs://bafkreifi3gguluv3picevgs3kelcjs4pavliew6yxxg6sib2obu4u52fvi",
+    "ipfs://bafkreidxtnprnf7ddmmclf3aheyoij5zvyiruegiv5h2b2bhkup24y4mkm",
+    "ipfs://bafkreihp5dlc7kg72fc6b2iqnhfswugw5urby57hdchnlpvacmnopnwkty",
+    "ipfs://bafkreib5gp4tvg7xvvusyu36hlisudprsimundazqu4k74bx67ecoohapq",
 ]
 
 
 class TestFuntionalCases(unittest.TestCase):
-    def test_normalize(self):
+    def test_100_normalize(self):
+        denormalized_data = {}
+        with open("denormalized.json", mode="r", encoding="utf-8") as file_data:
+            denormalized_data = json.load(file_data)
+
         actual_normalized_data = transpose.normalize(denormalized_data)
 
         self.assertTrue(actual_normalized_data is not None)
         self.assertEqual(actual_normalized_data, expected_normalized_data)
 
-    def test_de_normalize(self):
+    def test_200_de_normalize(self):
+        denormalized_data = {}
+        with open("denormalized.json", mode="r", encoding="utf-8") as file_data:
+            denormalized_data = json.load(file_data)
+
         actual_denormalized_data = transpose.de_normalize(expected_normalized_data)
 
         # Remove the _keys from the nested dictionaries since they are generated

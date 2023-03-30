@@ -150,9 +150,7 @@ def decode_nft_helper(sbom):
 
 def convert_cid_to_object(cid):
     address = cid.split("://")[1]
-    fetched_cid = json.loads(storage.get_cid_data(address))
-
-    fetched_cid_data = json.loads(fetched_cid)
+    fetched_cid_data = json.loads(storage.get_cid_data(address))
 
     if isinstance(fetched_cid_data, dict):
         for key in fetched_cid_data:
